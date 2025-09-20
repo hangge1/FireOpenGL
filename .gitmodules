@@ -1,0 +1,6 @@
+[submodule "submodule/glfw"]
+	path = submodule/glfw
+	url = https://github.com/hangge1/glfw.git
+[submodule "submodule/glad"]
+	path = submodule/glad
+	url = https://github.com/hangge1/glad.git
