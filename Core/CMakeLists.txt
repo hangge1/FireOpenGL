@@ -10,9 +10,8 @@ target_sources(Core PRIVATE ${SOURCES})
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
 
-target_link_libraries(Core glfw)
-target_link_libraries(Core glad)
-target_link_libraries(Core spdlog)
-#target_link_libraries(Core glm)
+set(Link_Libs glfw glad spdlog glm)
+
+target_link_libraries(Core ${Link_Libs})
 
 target_include_directories(Core PUBLIC "Source" "vendor/stb")

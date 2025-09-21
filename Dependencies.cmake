@@ -8,6 +8,7 @@ endif()
 
 add_subdirectory(submodule/spdlog)
 add_subdirectory(submodule/glfw)
+add_subdirectory(submodule/glm)
 add_subdirectory(submodule/glad/cmake)
 
 set(GLAD_NAME glad_lib)
