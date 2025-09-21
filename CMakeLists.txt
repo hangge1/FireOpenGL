@@ -19,9 +19,8 @@ message("====is_multi_config: ${is_multi_config}====")
 
 include(Dependencies.cmake)
 
-#add_subdirectory(Core)
+add_subdirectory(Core)
 add_subdirectory(App)
-
 
 if(BUILD_TESTS)
     add_subdirectory(test)
