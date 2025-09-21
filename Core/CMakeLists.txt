@@ -1,14 +1,15 @@
 
-set(SOURCES 
-vendor/stb/stb_image.h
-vendor/stb/stb_image.cpp
-)
+file(GLOB_RECURSE SOURCES "*.cpp" "*.h")
 
 add_library(Core STATIC)
 
 target_sources(Core PRIVATE ${SOURCES})
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
+
+add_compile_definitions(
+    GLFW_INCLUDE_NONE
+)
 
 set(Link_Libs glfw glad spdlog glm)
 
