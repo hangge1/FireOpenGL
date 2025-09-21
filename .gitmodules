@@ -4,3 +4,6 @@
 [submodule "submodule/glad"]
 	path = submodule/glad
 	url = https://github.com/hangge1/glad.git
+[submodule "submodule/googletest"]
+	path = submodule/googletest
+	url = https://github.com/hangge1/googletest.git
