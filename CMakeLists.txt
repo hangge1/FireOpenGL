@@ -15,6 +15,8 @@ endif()
 message("====CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}====")
 message("====is_multi_config: ${is_multi_config}====")
 
+
+add_subdirectory(submodule/spdlog)
 add_subdirectory(submodule/glfw)
 add_subdirectory(submodule/glad/cmake)
 
@@ -32,6 +34,8 @@ target_sources(FireOpenGL PRIVATE main.cpp ${GL_SOURCE_FILE})
 
 target_link_libraries(FireOpenGL PRIVATE glfw)
 target_link_libraries(FireOpenGL PRIVATE ${GLAD_NAME})
+target_link_libraries(FireOpenGL PRIVATE spdlog)
+
 
 #target_include_directories(FireOpenGL PRIVATE ${CMAKE_BINARY_DIR}/gladsources/${GLAD_NAME}/include)
 

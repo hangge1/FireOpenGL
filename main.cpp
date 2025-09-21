@@ -1,8 +1,6 @@
-
-#include <iostream>
-
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
+#include <spdlog/spdlog.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -30,8 +28,8 @@ int main(int argc, char* argv[])
     GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
+		SPDLOG_CRITICAL("Failed to create GLFW window!");
         return -1;
     }
     glfwMakeContextCurrent(window);
@@ -55,11 +53,11 @@ int main(int argc, char* argv[])
 
 	if (version == 0)
 	{
-		std::cout << "Failed to initialize OpenGL context" << std::endl;
-		return -1;
+		SPDLOG_CRITICAL("Failed to initialize OpenGL context");
+		return -2;
 	}
-	std::cout << "Loaded OpenGL " << GLAD_VERSION_MAJOR(version) << "." << GLAD_VERSION_MINOR(version) << std::endl;
 
+	SPDLOG_INFO("Loaded OpenGL {}.{}", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
 
 	// build and compile our shader program
 	// ------------------------------------
@@ -74,7 +72,7 @@ int main(int argc, char* argv[])
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		SPDLOG_ERROR("SHADER::VERTEX::COMPILATION_FAILED");
 	}
 	// fragment shader
 	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -85,7 +83,7 @@ int main(int argc, char* argv[])
 	if (!success)
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+		SPDLOG_ERROR("SHADER::FRAGMENT::COMPILATION_FAILED");
 	}
 	// link shaders
 	unsigned int shaderProgram = glCreateProgram();
@@ -96,7 +94,7 @@ int main(int argc, char* argv[])
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+		SPDLOG_ERROR("SHADER::PROGRAM::LINKING_FAILED");
 	}
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);

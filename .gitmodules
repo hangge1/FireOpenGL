@@ -7,3 +7,6 @@
 [submodule "submodule/googletest"]
 	path = submodule/googletest
 	url = https://github.com/hangge1/googletest.git
+[submodule "submodule/spdlog"]
+	path = submodule/spdlog
+	url = https://github.com/hangge1/spdlog.git
