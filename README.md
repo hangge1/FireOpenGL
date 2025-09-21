@@ -7,4 +7,6 @@ This project record the progress for studying opengl
    - Module: jinja2
 2. glad
 3. glfw
+4. spdlog
+5. googletest
 

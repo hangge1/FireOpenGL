@@ -27,24 +27,21 @@ project(FireOpenGL)
 add_executable(FireOpenGL)
 
 
-#get gl.c
+#build gl.h + gl.c -> glad
+set(GL_HEADER_FILE ${CMAKE_BINARY_DIR}/gladsources/${GLAD_NAME}/include/glad/gl.h)
 set(GL_SOURCE_FILE ${CMAKE_BINARY_DIR}/gladsources/${GLAD_NAME}/src/gl.c)
+add_library(glad STATIC ${GL_SOURCE_FILE} ${GL_HEADER_FILE})
+target_include_directories(glad PUBLIC ${CMAKE_BINARY_DIR}/gladsources/${GLAD_NAME}/include)
 
-target_sources(FireOpenGL PRIVATE main.cpp ${GL_SOURCE_FILE})
-
+target_sources(FireOpenGL PRIVATE main.cpp)
 target_link_libraries(FireOpenGL PRIVATE glfw)
-target_link_libraries(FireOpenGL PRIVATE ${GLAD_NAME})
+target_link_libraries(FireOpenGL PRIVATE glad)
 target_link_libraries(FireOpenGL PRIVATE spdlog)
-
-
-#target_include_directories(FireOpenGL PRIVATE ${CMAKE_BINARY_DIR}/gladsources/${GLAD_NAME}/include)
 
 
 option(BUILD_TESTS "Build the tests" ON)
 if(BUILD_TESTS)
     enable_testing()
     add_subdirectory(submodule/googletest)
-    add_executable(test_main test/test_main.cpp)
-    target_link_libraries(test_main PRIVATE gtest)
-    add_test(NAME test_main COMMAND test_main)
+    add_subdirectory(test)
 endif()
