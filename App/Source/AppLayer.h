@@ -3,7 +3,7 @@
 #include <cstdint>
 
 #include "Core/Layer.h"
-#include "Core/Event.h"
+#include "Core/Event/Event.h"
 
 class AppLayer : public Core::Layer
 {
@@ -11,7 +11,7 @@ public:
 	AppLayer();
 	virtual ~AppLayer();
 
-    virtual void OnEvent(Core::Event& event) override;
+    virtual void OnEvent(Core::Event::Event& event) override;
 	virtual void OnUpdate(float ts) override;
 	virtual void OnRender() override;
 private:

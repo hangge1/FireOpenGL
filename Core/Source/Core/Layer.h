@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Event.h"
 #include <Core/Renderer/GLCommon.h>
+#include <Core/Event/Event.h>
+#include <Core/Event/WindowSizeEvent.h>
 
 namespace Core {
 
@@ -10,11 +11,11 @@ namespace Core {
 	public:
 		virtual ~Layer() = default;
 
-		virtual void OnEvent(Event& event) 
+		virtual void OnEvent(Event::Event& event) 
         {
-            if (event.Type() == EventType::WindowSizeEvent)
+            if (event.Type() == Event::EventType::WindowSizeEvent)
             {
-                auto& ev = dynamic_cast<WindowSizeEvent&>(event);
+                auto& ev = dynamic_cast<Event::WindowSizeEvent&>(event);
                 glViewport(0, 0, ev.Width(), ev.Height());
             }
         }

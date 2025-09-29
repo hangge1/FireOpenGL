@@ -122,7 +122,7 @@ AppLayer::~AppLayer()
 	glDeleteProgram(m_Shader);
 }
 
-void AppLayer::OnEvent(Event& event)
+void AppLayer::OnEvent(Event::Event& event)
 {
     SPDLOG_INFO("{}", event.ToString());
 

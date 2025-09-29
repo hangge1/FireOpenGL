@@ -3,10 +3,19 @@
 #include <cassert>
 #include <iostream>
 
-#include <Core/Renderer/GLUtils.h>
 #include <spdlog/spdlog.h>
 
-
+#include <Core/Renderer/GLUtils.h>
+#include <Core/Event/KeyEvent.h>
+#include <Core/Event/MouseButtonEvent.h>
+#include <Core/Event/TitleBarHitTestEvent.h>
+#include <Core/Event/WindowFocusEvent.h>
+#include <Core/Event/WindowMaximizeEvent.h>
+#include <Core/Event/WindowPosEvent.h>
+#include <Core/Event/WindowRefreshEvent.h>
+#include <Core/Event/WindowSizeEvent.h>
+#include <Core/Event/ScrollEvent.h>
+#include <Core/Event/MouseMoveEvent.h>
 
 namespace Core {
 
@@ -105,7 +114,7 @@ namespace Core {
 		return (float)glfwGetTime();
 	}
 
-    void Application::DispatchEvent(Event& ev) const
+    void Application::DispatchEvent(Event::Event& ev) const
     {
         for (const auto& layer : m_LayerStack)
         {
@@ -117,39 +126,53 @@ namespace Core {
     {
         auto window = m_Window->GetHandle();
 
+        glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
+            Event::MouseButtonEvent ev{button,action,mods};
+            Application::Get().DispatchEvent(ev);
+        });
+
+        glfwSetScrollCallback(window, [](GLFWwindow* window, double xoffset, double yoffset) {
+            Event::ScrollEvent ev{ xoffset,yoffset };
+            Application::Get().DispatchEvent(ev);
+        });
+
+        glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
+            Event::MouseMoveEvent ev{ xpos,ypos };
+            Application::Get().DispatchEvent(ev);
+        });
+
         glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-            SPDLOG_INFO("key={} scancode={} action={} mods={}", key, scancode, action, mods);
-            KeyEvent ev{key, scancode, action, mods};
+            Event::KeyEvent ev{key, scancode, action, mods};
             Application::Get().DispatchEvent(ev);
         });
 
         glfwSetWindowPosCallback(window, [](GLFWwindow* window, int xpos, int ypos) {
-            WindowPosEvent ev{ xpos, ypos };
+            Event::WindowPosEvent ev{ xpos, ypos };
             Application::Get().DispatchEvent(ev);
         });
 
         glfwSetWindowMaximizeCallback(window, [](GLFWwindow* window, int maximized) {
-            WindowMaximizeEvent ev{ maximized };
+            Event::WindowMaximizeEvent ev{ maximized };
             Application::Get().DispatchEvent(ev);
         });
 
         glfwSetTitlebarHitTestCallback(window, [](GLFWwindow* window, int xpos, int ypos, int* hit) {
-            TitleBarHitTestEvent ev{ xpos, ypos, hit };
+            Event::TitleBarHitTestEvent ev{ xpos, ypos, hit };
             Application::Get().DispatchEvent(ev);
         });
 
         glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
-            WindowSizeEvent ev{ width, height };
+            Event::WindowSizeEvent ev{ width, height };
             Application::Get().DispatchEvent(ev);
         });
 
         glfwSetWindowRefreshCallback(window, [](GLFWwindow* window) {
-            WindowRefreshEvent ev;
+            Event::WindowRefreshEvent ev;
             Application::Get().DispatchEvent(ev);
         });
         
         glfwSetWindowFocusCallback(window, [](GLFWwindow* window, int focused) {
-            WindowFocusEvent ev{ focused };
+            Event::WindowFocusEvent ev{ focused };
             Application::Get().DispatchEvent(ev);
         });
         

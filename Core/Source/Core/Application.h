@@ -39,7 +39,7 @@ namespace Core {
 		static float GetTime();
 
     protected:
-        void DispatchEvent(Event& ev) const;
+        void DispatchEvent(Event::Event& ev) const;
 
         void RegisterEventCallback() const;
 	private:
