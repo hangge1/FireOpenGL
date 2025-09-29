@@ -2,6 +2,7 @@
 #pragma once
 
 #include <Core/Event/Event.h>
+#include <Core/Event/Modifier.h>
 
 namespace Core::Event {
     class KeyEvent : public Event
@@ -33,7 +34,7 @@ namespace Core::Event {
             return action_;
         }
 
-        int Mods() const
+        Modifier Mods() const
         {
             return mods_;
         }
@@ -53,6 +54,6 @@ namespace Core::Event {
         int key_;
         int scancode_;
         int action_;
-        int mods_;
+        Modifier mods_;
     };
 }
