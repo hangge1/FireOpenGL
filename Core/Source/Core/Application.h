@@ -37,6 +37,11 @@ namespace Core {
 
 		static Application& Get();
 		static float GetTime();
+
+    protected:
+        void DispatchEvent(Event& ev) const;
+
+        void RegisterEventCallback() const;
 	private:
 		ApplicationSpecification m_Specification;
 		std::shared_ptr<Window> m_Window;

@@ -3,9 +3,6 @@
 #include <cassert>
 #include <iostream>
 
-
-#include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
 #include <Core/Renderer/GLUtils.h>
 #include <spdlog/spdlog.h>
 
@@ -14,12 +11,6 @@
 namespace Core {
 
 	static Application* s_Application = nullptr;
-
-    static void processInput(GLFWwindow* window)
-    {
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, true);
-    }
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
@@ -33,13 +24,19 @@ namespace Core {
 
 		glfwSetErrorCallback(GLFWErrorCallback);
 		glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
-		// Set window title to app name if empty
 		if (m_Specification.WindowSpec.Title.empty())
 			m_Specification.WindowSpec.Title = m_Specification.Name;
 
 		m_Window = std::make_shared<Window>(m_Specification.WindowSpec);
 		m_Window->Create();
+
+
+        RegisterEventCallback();
 
 		Renderer::Utils::InitOpenGLDebugMessageCallback();
 	}
@@ -58,12 +55,14 @@ namespace Core {
 		m_Running = true;
 
 		float lastTime = GetTime();
+        auto window = m_Window->GetHandle();
 
-		// Main Application loop
 		while (m_Running)
 		{
-            processInput(m_Window->GetHandle());
 			glfwPollEvents();
+            
+            if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+                glfwSetWindowShouldClose(window, true);
 
 			if (m_Window->ShouldClose())
 			{
@@ -75,11 +74,9 @@ namespace Core {
 			float timestep = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
 			lastTime = currentTime;
 
-			// Main layer update here
 			for (const std::unique_ptr<Layer>& layer : m_LayerStack)
 				layer->OnUpdate(timestep);
 
-			// NOTE: rendering can be done elsewhere (eg. render thread)
 			for (const std::unique_ptr<Layer>& layer : m_LayerStack)
 				layer->OnRender();
 
@@ -108,4 +105,56 @@ namespace Core {
 		return (float)glfwGetTime();
 	}
 
+    void Application::DispatchEvent(Event& ev) const
+    {
+        for (const auto& layer : m_LayerStack)
+        {
+            layer->OnEvent(ev);
+        }
+    }
+
+    void Application::RegisterEventCallback() const
+    {
+        auto window = m_Window->GetHandle();
+
+        glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+            SPDLOG_INFO("key={} scancode={} action={} mods={}", key, scancode, action, mods);
+            KeyEvent ev{key, scancode, action, mods};
+            Application::Get().DispatchEvent(ev);
+        });
+
+        glfwSetWindowPosCallback(window, [](GLFWwindow* window, int xpos, int ypos) {
+            WindowPosEvent ev{ xpos, ypos };
+            Application::Get().DispatchEvent(ev);
+        });
+
+        glfwSetWindowMaximizeCallback(window, [](GLFWwindow* window, int maximized) {
+            WindowMaximizeEvent ev{ maximized };
+            Application::Get().DispatchEvent(ev);
+        });
+
+        glfwSetTitlebarHitTestCallback(window, [](GLFWwindow* window, int xpos, int ypos, int* hit) {
+            TitleBarHitTestEvent ev{ xpos, ypos, hit };
+            Application::Get().DispatchEvent(ev);
+        });
+
+        glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+            WindowSizeEvent ev{ width, height };
+            Application::Get().DispatchEvent(ev);
+        });
+
+        glfwSetWindowRefreshCallback(window, [](GLFWwindow* window) {
+            WindowRefreshEvent ev;
+            Application::Get().DispatchEvent(ev);
+        });
+        
+        glfwSetWindowFocusCallback(window, [](GLFWwindow* window, int focused) {
+            WindowFocusEvent ev{ focused };
+            Application::Get().DispatchEvent(ev);
+        });
+        
+        //glfwSetFramebufferSizeCallback
+
+        //glfwSetWindowContentScaleCallback
+    }
 }

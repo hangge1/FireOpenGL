@@ -17,11 +17,6 @@ namespace Core {
 
 	void Window::Create()
 	{
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-
 		m_Handle = glfwCreateWindow(m_Specification.Width, m_Specification.Height,
 			m_Specification.Title.c_str(), nullptr, nullptr);
 
@@ -36,17 +31,17 @@ namespace Core {
 		glfwSwapInterval(m_Specification.VSync ? 1 : 0);
 
 #ifdef GLAD_OPTION_GL_MX
-	    GladGLContext context = {};
+        GladGLContext context = {};
 #ifdef GLAD_OPTION_GL_LOADER
-	    int version = gladLoaderLoadGLContext(&context);
+        int version = gladLoaderLoadGLContext(&context);
 #else
-	    int version = gladLoadGLContext(&context, glfwGetProcAddress);
+        int version = gladLoadGLContext(&context, glfwGetProcAddress);
 #endif
 #else
 #ifdef GLAD_OPTION_GL_LOADER
-	    int version = gladLoaderLoadGL();
+        int version = gladLoaderLoadGL();
 #else
-	    int version = gladLoadGL(glfwGetProcAddress);
+        int version = gladLoadGL(glfwGetProcAddress);
 #endif
 #endif
 

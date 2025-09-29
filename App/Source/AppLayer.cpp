@@ -2,12 +2,11 @@
 
 #include "Core/Application.h"
 
-// #include "Core/Renderer/Renderer.h"
-// #include "Core/Renderer/Shader.h"
-
 #include <glm/glm.hpp>
 #include <cassert>
 #include <spdlog/spdlog.h>
+
+using namespace Core;
 
 static GLuint CompileShader(unsigned int type, const std::string& source)
 {
@@ -121,6 +120,13 @@ AppLayer::~AppLayer()
 	glDeleteBuffers(1, &m_VertexBuffer);
 
 	glDeleteProgram(m_Shader);
+}
+
+void AppLayer::OnEvent(Event& event)
+{
+    SPDLOG_INFO("{}", event.ToString());
+
+    Layer::OnEvent(event);
 }
 
 void AppLayer::OnUpdate(float ts)
