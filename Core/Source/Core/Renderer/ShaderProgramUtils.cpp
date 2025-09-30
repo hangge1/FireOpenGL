@@ -16,7 +16,6 @@ std::unique_ptr<ShaderProgram> ShaderProgramUtils::CreateShaderProgramFromSource
     Shader vertexShader(vertexShaderSource, GL_VERTEX_SHADER);
     Shader fragmentShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
     auto shaderProgram = std::make_unique<ShaderProgram>();
-    shaderProgram->Bind();
     shaderProgram->AttachShader(vertexShader);
     shaderProgram->AttachShader(fragmentShader);
     shaderProgram->Link();

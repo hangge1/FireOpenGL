@@ -15,4 +15,4 @@ set(Link_Libs glfw glad spdlog glm)
 
 target_link_libraries(Core ${Link_Libs})
 
-target_include_directories(Core PUBLIC "Source" "vendor/stb")
+target_include_directories(Core PUBLIC "Source" "vendor/stb" .)

@@ -2,6 +2,7 @@
 #pragma once    
 
 #include <string>
+
 #include <Core/Renderer/GLApi.h>
 #include <Core/Renderer/GLObject.h>
 
@@ -16,7 +17,7 @@ public:
 
     void Bind() const override;
     void Unbind() const override;
-    
+
 protected:
     unsigned int m_ShaderType;
 };

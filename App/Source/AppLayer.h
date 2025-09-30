@@ -9,18 +9,19 @@
 #include <Core/Renderer/VBO.h>
 #include <Core/Renderer/EBO.h>
 #include <Core/Renderer/ShaderProgram.h>
+#include <Core/Renderer/Texture2D.h>
 
 class AppLayer : public Core::Layer
 {
 public:
-	AppLayer();
-	virtual ~AppLayer();
+    virtual bool Init() override;
 
     virtual void OnEvent(Core::Event::Event& event) override;
 	virtual void OnUpdate(float ts) override;
 	virtual void OnRender() override;
 private:
-	std::unique_ptr<Core::Renderer::ShaderProgram> m_ShaderProgram;
+    std::unique_ptr<Core::Renderer::ShaderProgram> m_ShaderProgram;
+    std::unique_ptr<Core::Renderer::Texture2D> m_Texture;
 
     Core::Renderer::VAO m_vao;
     Core::Renderer::VBO m_vbo;

@@ -33,7 +33,11 @@ namespace Core {
 		template <typename TLayer, typename = std::enable_if_t<std::is_base_of_v<Layer, TLayer>>>
 		void PushLayer()
 		{
-			m_LayerStack.push_back(std::make_unique<TLayer>());
+            auto layer = std::make_unique<TLayer>();
+            if (layer->Init())
+            {
+			    m_LayerStack.push_back(std::move(layer));
+            }
 		}
 
 		glm::vec2 GetFramebufferSize() const;

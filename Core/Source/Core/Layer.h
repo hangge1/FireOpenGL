@@ -14,6 +14,8 @@ namespace Core {
 		virtual ~Layer() = default;
 		DELETE_COPY_ASSIGNMENT(Layer);
 
+        virtual bool Init(){ return true; }
+
 		virtual void OnEvent(Event::Event& event) 
         {
             if (event.Type() == Event::EventType::WindowSizeEvent)
