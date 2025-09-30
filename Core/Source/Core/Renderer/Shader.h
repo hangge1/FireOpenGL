@@ -2,8 +2,10 @@
 #pragma once    
 
 #include <string>
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
 #include <Core/Renderer/GLObject.h>
+
+namespace Core::Renderer {
 
 class Shader : public GLObject
 {
@@ -12,9 +14,11 @@ public:
     ~Shader();
     DELETE_COPY_ASSIGNMENT(Shader);
 
-    void Bind() const;
-    void Unbind() const;
+    void Bind() const override;
+    void Unbind() const override;
     
 protected:
     unsigned int m_ShaderType;
 };
+
+}

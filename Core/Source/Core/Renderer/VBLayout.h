@@ -1,9 +1,11 @@
 #pragma once
 
-#include <vector>
 #include <cassert>
+#include <vector>
 
-#include "Core/Renderer/GLCommon.h"
+#include <Core/Renderer/GLApi.h>
+
+namespace Core::Renderer {
 
 struct VertexBufferElement
 {
@@ -67,3 +69,5 @@ public:
 	inline const std::vector<VertexBufferElement> GetElements() const { return m_Elements; }
 	inline unsigned int GetStride() const { return m_Stride; }
 };
+
+}

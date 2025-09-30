@@ -1,15 +1,15 @@
 #include "AppLayer.h"
 
-#include "Core/Application.h"
-
-#include <glm/glm.hpp>
 #include <cassert>
 #include <spdlog/spdlog.h>
+#include <glm/glm.hpp>
 
+#include <Core/Application.h>
 #include <Core/Renderer/VBLayout.h>
-#include <Core/Renderer/ShaderProgramHelper.h>
+#include <Core/Renderer/ShaderProgramUtils.h>
 
 using namespace Core;
+using namespace Core::Renderer;
 
 static GLuint CompileShader(unsigned int type, const std::string& source)
 {
@@ -73,7 +73,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 AppLayer::AppLayer()
 {
 	// Create shaders
-	m_ShaderProgram = CreateShaderProgramFromSource(vertexShaderSource, fragmentShaderSource);
+	m_ShaderProgram = ShaderProgramUtils::CreateShaderProgramFromSource(vertexShaderSource, fragmentShaderSource);
 	if (!m_ShaderProgram)
 	{
 		SPDLOG_CRITICAL("Failed to Create ShaderProgram");

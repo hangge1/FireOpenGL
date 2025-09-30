@@ -2,8 +2,9 @@
 
 #include <Core/Common/Macro.h>
 #include <Core/Renderer/GLObject.h>
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
 
+namespace Core::Renderer {
 
 class VBO : public GLObject
 {
@@ -16,3 +17,5 @@ public:
     void Unbind() const override;
     void SetData(const void* data, unsigned int size, unsigned int usage = GL_STATIC_DRAW);
 };
+
+}

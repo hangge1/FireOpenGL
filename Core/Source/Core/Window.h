@@ -3,7 +3,7 @@
 #include <string>
 #include <glm/glm.hpp>
 
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
 #include <Core/Common/Macro.h>
 
 namespace Core {

@@ -1,6 +1,8 @@
 
 #include "Core/Renderer/EBO.h"
 
+using namespace Core::Renderer;
+
 EBO::EBO()
 {
     static_assert(sizeof(unsigned int) == sizeof(GLuint), "sizeof(unsigned int) != sizeof(GLuint)");

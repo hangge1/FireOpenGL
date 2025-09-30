@@ -1,6 +1,8 @@
 
 #include "Core/Renderer/VBO.h"
 
+using namespace Core::Renderer;
+
 VBO::VBO()
 {
     glGenBuffers(1, &m_ID);

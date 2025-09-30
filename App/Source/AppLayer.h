@@ -20,9 +20,9 @@ public:
 	virtual void OnUpdate(float ts) override;
 	virtual void OnRender() override;
 private:
-	std::unique_ptr<ShaderProgram> m_ShaderProgram;
+	std::unique_ptr<Core::Renderer::ShaderProgram> m_ShaderProgram;
 
-    VAO m_vao;
-    VBO m_vbo;
-    EBO m_ebo;
+    Core::Renderer::VAO m_vao;
+    Core::Renderer::VBO m_vbo;
+    Core::Renderer::EBO m_ebo;
 };

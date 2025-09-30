@@ -4,6 +4,8 @@
 #include <Core/Renderer/GLObject.h>
 
 
+namespace Core::Renderer {
+
 class Shader;
 
 class ShaderProgram : public GLObject
@@ -18,3 +20,5 @@ public:
     void AttachShader(const Shader& shader);
     void Link();
 };
+
+}

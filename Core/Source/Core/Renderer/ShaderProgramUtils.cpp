@@ -1,5 +1,5 @@
 
-#include "Core/Renderer/ShaderProgramHelper.h"
+#include "Core/Renderer/ShaderProgramUtils.h"
 
 #include <optional>
 
@@ -8,8 +8,10 @@
 #include <Core/Renderer/Shader.h>
 #include <Core/Common/FileUtils.h>
 
+using namespace Core::Renderer;
 
-std::unique_ptr<ShaderProgram> CreateShaderProgramFromSource(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
+std::unique_ptr<ShaderProgram> ShaderProgramUtils::CreateShaderProgramFromSource(const std::string& vertexShaderSource, 
+    const std::string& fragmentShaderSource)
 {
     Shader vertexShader(vertexShaderSource, GL_VERTEX_SHADER);
     Shader fragmentShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
@@ -21,7 +23,8 @@ std::unique_ptr<ShaderProgram> CreateShaderProgramFromSource(const std::string& 
     return shaderProgram;
 }
 
-std::unique_ptr<ShaderProgram> CreateShaderProgramFromFile(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+std::unique_ptr<ShaderProgram> ShaderProgramUtils::CreateShaderProgramFromFile(const std::string& vertexShaderFile, 
+    const std::string& fragmentShaderFile)
 {
     std::optional<std::string> vertexShaderSource = Core::Common::FileUtils::ReadFile(vertexShaderFile);
     std::optional<std::string> fragmentShaderSource = Core::Common::FileUtils::ReadFile(fragmentShaderFile);

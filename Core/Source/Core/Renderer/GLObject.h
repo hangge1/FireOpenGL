@@ -2,6 +2,8 @@
 
 #include "Core/Common/Macro.h"
 
+namespace Core::Renderer {
+
 class GLObject
 {
 public:
@@ -29,3 +31,5 @@ public:
 protected:
     unsigned int m_ID = 0;
 };
+
+}

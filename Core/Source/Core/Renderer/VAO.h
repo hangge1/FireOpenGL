@@ -2,7 +2,9 @@
 
 #include <Core/Common/Macro.h>
 #include <Core/Renderer/GLObject.h>
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
+
+namespace Core::Renderer {
 
 class VBO;
 class VertexBufferLayout;
@@ -18,3 +20,5 @@ public:
     void Unbind() const override;
     void AddBuffer(const VBO& vbo, const VertexBufferLayout& layout);
 };
+
+}

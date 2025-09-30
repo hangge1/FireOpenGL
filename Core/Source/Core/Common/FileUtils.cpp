@@ -1,10 +1,8 @@
 
 #include "Core/Common/FileUtils.h"
 
-#include <spdlog/spdlog.h>
-
 #include <fstream>
-#include <iostream>
+#include <spdlog/spdlog.h>
 
 using namespace Core::Common;
 

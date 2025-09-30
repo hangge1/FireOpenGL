@@ -3,6 +3,8 @@
 
 #include <spdlog/spdlog.h>
 
+using namespace Core::Renderer;
+
 Shader::Shader(const std::string& shaderSource, unsigned int shaderType)
     : m_ShaderType(shaderType)
 {

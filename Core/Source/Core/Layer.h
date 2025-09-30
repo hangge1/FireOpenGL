@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
 #include <Core/Event/Event.h>
 #include <Core/Event/WindowSizeEvent.h>
 #include <Core/Common/Macro.h>

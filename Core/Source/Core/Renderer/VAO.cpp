@@ -4,6 +4,7 @@
 #include <Core/Renderer/VBO.h>
 #include <Core/Renderer/VBLayout.h>
 
+using namespace Core::Renderer;
 
 VAO::VAO()
 {

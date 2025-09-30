@@ -2,8 +2,9 @@
 
 #include <Core/Common/Macro.h>
 #include <Core/Renderer/GLObject.h>
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
 
+namespace Core::Renderer {
 
 class EBO : public GLObject
 {
@@ -20,3 +21,5 @@ public:
 protected:
     unsigned int m_Count = 0;
 };
+
+}

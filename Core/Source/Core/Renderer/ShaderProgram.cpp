@@ -1,10 +1,12 @@
 
 
 #include "Core/Renderer/ShaderProgram.h"
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
 #include <Core/Renderer/Shader.h>
 
 #include <spdlog/spdlog.h>
+
+using namespace Core::Renderer;
 
 ShaderProgram::ShaderProgram()
 {

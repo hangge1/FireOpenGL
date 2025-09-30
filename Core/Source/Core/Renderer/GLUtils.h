@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <Core/Renderer/GLCommon.h>
+#include <Core/Renderer/GLApi.h>
 
-namespace Renderer::Utils {
+namespace Core::Renderer {
 
 	const char* GLDebugSourceToString(GLenum source);
 	const char* GLDebugTypeToString(GLenum type);
