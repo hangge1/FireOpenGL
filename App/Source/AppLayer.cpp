@@ -6,6 +6,8 @@
 #include <cassert>
 #include <spdlog/spdlog.h>
 
+#include <Core/Renderer/VBLayout.h>
+
 using namespace Core;
 
 static GLuint CompileShader(unsigned int type, const std::string& source)
@@ -88,37 +90,22 @@ AppLayer::AppLayer()
 		1, 2, 3   // second Triangle
 	};
 
-	glGenVertexArrays(1, &m_VertexArray);
-	glGenBuffers(1, &m_VertexBuffer);
-	glGenBuffers(1, &m_IndexBuffer);
-	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(m_VertexArray);
+    m_vao.Bind();
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    m_vbo.Bind();
+    m_vbo.SetData(vertices, sizeof(vertices));
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    m_ebo.Bind();
+    m_ebo.SetData(indices, 6);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+    VertexBufferLayout layout;
+    layout.Push<float>(3);
 
-	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	// remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-	glBindVertexArray(0);
+    m_vao.AddBuffer(m_vbo, layout);
 }
 
 AppLayer::~AppLayer()
 {
-	glDeleteVertexArrays(1, &m_VertexArray);
-	glDeleteBuffers(1, &m_VertexBuffer);
-
 	glDeleteProgram(m_Shader);
 }
 
@@ -138,6 +125,6 @@ void AppLayer::OnRender()
 	glUseProgram(m_Shader);
 
 	// Render
-	glBindVertexArray(m_VertexArray);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    m_vao.Bind();
+	glDrawElements(GL_TRIANGLES, m_ebo.Count(), GL_UNSIGNED_INT, 0);
 }

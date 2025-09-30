@@ -3,7 +3,11 @@
 #include <cstdint>
 
 #include "Core/Layer.h"
-#include "Core/Event/Event.h"
+#include <Core/Event/Event.h>
+
+#include <Core/Renderer/VAO.h>
+#include <Core/Renderer/VBO.h>
+#include <Core/Renderer/EBO.h>
 
 class AppLayer : public Core::Layer
 {
@@ -16,7 +20,8 @@ public:
 	virtual void OnRender() override;
 private:
 	uint32_t m_Shader = 0;
-	uint32_t m_VertexArray = 0;
-	uint32_t m_VertexBuffer = 0;
-	uint32_t m_IndexBuffer = 0;
+
+    VAO m_vao;
+    VBO m_vbo;
+    EBO m_ebo;
 };
