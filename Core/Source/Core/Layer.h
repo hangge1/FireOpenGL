@@ -3,13 +3,16 @@
 #include <Core/Renderer/GLCommon.h>
 #include <Core/Event/Event.h>
 #include <Core/Event/WindowSizeEvent.h>
+#include <Core/Common/Macro.h>
 
 namespace Core {
 
 	class Layer
 	{
 	public:
+        Layer() = default;
 		virtual ~Layer() = default;
+		DELETE_COPY_ASSIGNMENT(Layer);
 
 		virtual void OnEvent(Event::Event& event) 
         {

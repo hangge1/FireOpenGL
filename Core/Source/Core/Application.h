@@ -1,14 +1,16 @@
 
 #pragma once
 
-#include "Layer.h"
-#include "Window.h"
-
-#include <glm/glm.hpp>
-
 #include <string>
 #include <memory>
 #include <vector>
+
+#include <glm/glm.hpp>
+
+#include <Core/Layer.h>
+#include <Core/Window.h>
+#include <Core/Common/Macro.h>
+
 
 namespace Core {
 
@@ -23,6 +25,7 @@ namespace Core {
 	public:
 		Application(const ApplicationSpecification& specification = ApplicationSpecification());
 		~Application();
+		DELETE_COPY_ASSIGNMENT(Application);
 
 		void Run();
 		void Stop();

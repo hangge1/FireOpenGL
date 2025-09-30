@@ -5,7 +5,7 @@
 Core::Application* CreateApplication()
 {
 	Core::ApplicationSpecification appSpec;
-	appSpec.Name = "Architecture";
+	appSpec.Name = "FireOpenGL";
 	appSpec.WindowSpec.Width = 800;
 	appSpec.WindowSpec.Height = 600;
 

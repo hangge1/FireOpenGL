@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Core/Renderer/GLCommon.h>
-
+#include <string>
 #include <glm/glm.hpp>
 
-#include <string>
+#include <Core/Renderer/GLCommon.h>
+#include <Core/Common/Macro.h>
 
 namespace Core {
 
@@ -22,6 +22,7 @@ namespace Core {
 	public:
 		Window(const WindowSpecification& specification = WindowSpecification());
 		~Window();
+		DELETE_COPY_ASSIGNMENT(Window);
 
 		void Create();
 		void Destroy();

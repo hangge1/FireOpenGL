@@ -3,6 +3,8 @@
 #include <iostream>
 #include <sstream>
 
+#include <Core/Common/Macro.h>
+
 namespace Core::Event {
 
     enum class EventType : unsigned int
@@ -27,8 +29,7 @@ namespace Core::Event {
     public:
         Event() = default;
         ~Event() = default;
-        Event(const Event&) = delete;
-        Event& operator=(const Event&) = delete;
+        DELETE_COPY_ASSIGNMENT(Event);
 
         virtual EventType Type() const = 0;
 
