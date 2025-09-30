@@ -9,7 +9,7 @@ namespace Core::Event {
     {
     public:
         KeyEvent(int key, int scancode, int action, int mods)
-            : key_(key), scancode_(scancode), action_(action), mods_(mods)
+            : m_key(key), m_scancode(scancode), m_action(action), m_mods(mods)
         {
 
         }
@@ -21,39 +21,39 @@ namespace Core::Event {
 
         int Key() const
         {
-            return key_;
+            return m_key;
         }
 
         int ScanCode() const
         {
-            return scancode_;
+            return m_scancode;
         }
 
         int Action() const
         {
-            return action_;
+            return m_action;
         }
 
         Modifier Mods() const
         {
-            return mods_;
+            return m_mods;
         }
 
         void Serialize(std::ostream& os) override
         {
             os << "[KeyEvent]{";
 
-            os << " key:" << key_;
-            os << " scancode:" << scancode_;
-            os << " action:" << action_;
-            os << " mods:" << mods_;
+            os << " key:" << m_key;
+            os << " scancode:" << m_scancode;
+            os << " action:" << m_action;
+            os << " mods:" << m_mods;
 
             os << " }\n";
         }
     private:
-        int key_;
-        int scancode_;
-        int action_;
-        Modifier mods_;
+        int m_key;
+        int m_scancode;
+        int m_action;
+        Modifier m_mods;
     };
 }

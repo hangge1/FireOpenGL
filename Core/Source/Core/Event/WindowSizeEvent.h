@@ -8,7 +8,7 @@ class WindowSizeEvent : public Event
 {
 public:
     WindowSizeEvent(int width, int height)
-        : width_(width), height_(height)
+        : m_width(width), m_height(height)
     {
 
     }
@@ -21,26 +21,26 @@ public:
 
     int Width() const
     {
-        return width_;
+        return m_width;
     }
 
     int Height() const
     {
-        return height_;
+        return m_height;
     }
 
     void Serialize(std::ostream& os) override
     {
         os << "[WindowSizeEvent]{";
 
-        os << " width:" << width_;
-        os << " height:" << height_;
+        os << " width:" << m_width;
+        os << " height:" << m_height;
 
         os << " }\n";
     }
 private:
-    int width_{};
-    int height_{};
+    int m_width{};
+    int m_height{};
 };
 
 }

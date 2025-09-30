@@ -8,17 +8,17 @@ namespace Core::Event {
 class MousePressType
 {
 public:
-    MousePressType(int type): type_(type) {}
+    MousePressType(int type): m_type(type) {}
     ~MousePressType() = default;
 
-    int Type() const { return type_; }
+    int Type() const { return m_type; }
 
     static const MousePressType Release;
     static const MousePressType Press;
 
     bool operator==(const MousePressType& other) const
     {
-        return type_ == other.type_;
+        return m_type == other.m_type;
     }
 
     bool operator!=(const MousePressType& other) const
@@ -28,7 +28,7 @@ public:
 
     std::string ToString() const
     {
-        return MousePressTypeNames[type_];
+        return m_sMousePressTypeNames[m_type];
     }
 
     friend std::ostream& operator<<(std::ostream& os, const MousePressType& mousePressType)
@@ -38,7 +38,7 @@ public:
     }
 
 private:
-    int type_;
-    static const std::string MousePressTypeNames[2];
+    int m_type;
+    static const std::string m_sMousePressTypeNames[2];
 };
 }

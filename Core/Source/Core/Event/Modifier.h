@@ -18,7 +18,7 @@ class Modifier
     };
 
 public:
-    Modifier(int mods) : mods_(mods) {}
+    Modifier(int mods) : m_mods(mods) {}
 
     static const Modifier None() { return Modifier(0); }
     static const Modifier Shift() { return Modifier(ModShift); }
@@ -29,13 +29,13 @@ public:
     static const Modifier CtrlAlt() { return Modifier(ModCtrl | ModAlt); }
     static const Modifier ShiftCtrlAlt() { return Modifier(ModShift | ModCtrl | ModAlt); }
 
-    bool IsAlt() const { return mods_ & static_cast<unsigned char>(ModAlt); }
-    bool IsCtrl() const { return mods_ & static_cast<unsigned char>(ModCtrl); }
-    bool IsShift() const { return mods_ & static_cast<unsigned char>(ModShift); }
+    bool IsAlt() const { return m_mods & static_cast<unsigned char>(ModAlt); }
+    bool IsCtrl() const { return m_mods & static_cast<unsigned char>(ModCtrl); }
+    bool IsShift() const { return m_mods & static_cast<unsigned char>(ModShift); }
     
     bool operator==(const Modifier& other) const
     {
-        return mods_ == other.mods_;
+        return m_mods == other.m_mods;
     }
 
     bool operator!=(const Modifier& other) const
@@ -53,7 +53,7 @@ public:
         return os;
     }
 private:
-    unsigned char mods_{};
+    unsigned char m_mods {};
 };
 
 }

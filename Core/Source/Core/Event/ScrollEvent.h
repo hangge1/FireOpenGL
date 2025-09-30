@@ -8,8 +8,8 @@ class ScrollEvent : public Event
 {
 public:
     ScrollEvent(double xoffset, double yoffset)
-        : xoffset_(xoffset),
-          yoffset_(yoffset)
+        : m_xoffset(xoffset),
+          m_yoffset(yoffset)
     {
 
     }
@@ -22,26 +22,26 @@ public:
 
     double XOffset() const
     {
-        return xoffset_;
+        return m_xoffset;
     }
 
     double YOffset() const
     {
-        return yoffset_;
+        return m_yoffset;
     }
 
     void Serialize(std::ostream& os) override
     {
         os << "[ScrollEvent]{";
 
-        os << " xoffset:" << xoffset_;
-        os << " yoffset:" << yoffset_;
+        os << " xoffset:" << m_xoffset;
+        os << " yoffset:" << m_yoffset;
 
         os << " }\n";
     }
 private:
-    double xoffset_{};
-    double yoffset_{};
+    double m_xoffset{};
+    double m_yoffset{};
 };
 
 }

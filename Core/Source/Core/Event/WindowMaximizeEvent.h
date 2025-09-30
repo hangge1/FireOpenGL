@@ -8,7 +8,7 @@ class WindowMaximizeEvent : public Event
 {
 public:
     WindowMaximizeEvent(int maximized)
-        : maximized_(maximized)
+        : m_maximized(maximized)
     {
 
     }
@@ -21,19 +21,19 @@ public:
 
     int Maximized() const
     {
-        return maximized_;
+        return m_maximized;
     }
 
     void Serialize(std::ostream& os) override
     {
         os << "[WindowMaximizeEvent]{";
 
-        os << " maximized:" << maximized_;
+        os << " maximized:" << m_maximized;
 
         os << " }\n";
     }
 private:
-    int maximized_{};
+    int m_maximized{};
 };
 
 }

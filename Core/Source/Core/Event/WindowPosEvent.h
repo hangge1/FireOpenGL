@@ -8,7 +8,7 @@ class WindowPosEvent : public Event
 {
 public:
     WindowPosEvent(int xpos, int ypos)
-        : xpos_(xpos), ypos_(ypos)
+        : m_xpos(xpos), m_ypos(ypos)
     {
 
     }
@@ -21,32 +21,32 @@ public:
 
     int XPos() const
     {
-        return xpos_;
+        return m_xpos;
     }
 
     int YPos() const
     {
-        return ypos_;
+        return m_ypos;
     }
 
     void Pos(int* xpos, int* ypos)
     {
-        *xpos = xpos_;
-        *ypos = ypos_;
+        *xpos = m_xpos;
+        *ypos = m_ypos;
     }
 
     void Serialize(std::ostream& os) override
     {
         os << "[WindowPosEvent]{";
 
-        os << " xpos:" << xpos_;
-        os << " ypos:" << ypos_;
+        os << " xpos:" << m_xpos;
+        os << " ypos:" << m_ypos;
 
         os << " }\n";
     }
 private:
-    int xpos_{};
-    int ypos_{};
+    int m_xpos{};
+    int m_ypos{};
 };
 
 }

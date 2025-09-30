@@ -8,7 +8,7 @@ class WindowFocusEvent : public Event
 {
 public:
     WindowFocusEvent(int focused)
-        : focused_(focused)
+        : m_focused(focused)
     {
 
     }
@@ -21,19 +21,19 @@ public:
 
     int Focused() const
     {
-        return focused_;
+        return m_focused;
     }
 
     void Serialize(std::ostream& os) override
     {
         os << "[WindowFocusEvent]{";
 
-        os << " focus:" << focused_;
+        os << " focus:" << m_focused;
 
         os << " }\n";
     }
 private:
-    int focused_{};
+    int m_focused{};
 };
 
 }

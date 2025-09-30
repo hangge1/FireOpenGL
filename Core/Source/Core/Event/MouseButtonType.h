@@ -8,10 +8,10 @@ namespace Core::Event {
 class MouseButtonType
 {
 public:
-    MouseButtonType(int type): type_(type) {}
+    MouseButtonType(int type): m_type(type) {}
     ~MouseButtonType() = default;
 
-    int Type() const { return type_; }
+    int Type() const { return m_type; }
 
     static const MouseButtonType LeftButton;
     static const MouseButtonType RightButton;
@@ -19,7 +19,7 @@ public:
 
     bool operator==(const MouseButtonType& other) const
     {
-        return type_ == other.type_;
+        return m_type == other.m_type;
     }
 
     bool operator!=(const MouseButtonType& other) const
@@ -29,7 +29,7 @@ public:
 
     std::string ToString() const
     {
-        return MouseButtonTypeNames[type_];
+        return m_sMouseButtonTypeNames[m_type];
     }
 
     friend std::ostream& operator<<(std::ostream& os, const MouseButtonType& mouseButtonType)
@@ -39,8 +39,8 @@ public:
     }
 
 private:
-    int type_;
-    static const std::string MouseButtonTypeNames[3];
+    int m_type;
+    static const std::string m_sMouseButtonTypeNames[3];
 };
 
 }
