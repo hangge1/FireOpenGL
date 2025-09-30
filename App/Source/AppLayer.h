@@ -8,6 +8,7 @@
 #include <Core/Renderer/VAO.h>
 #include <Core/Renderer/VBO.h>
 #include <Core/Renderer/EBO.h>
+#include <Core/Renderer/ShaderProgram.h>
 
 class AppLayer : public Core::Layer
 {
@@ -19,7 +20,7 @@ public:
 	virtual void OnUpdate(float ts) override;
 	virtual void OnRender() override;
 private:
-	uint32_t m_Shader = 0;
+	std::unique_ptr<ShaderProgram> m_ShaderProgram;
 
     VAO m_vao;
     VBO m_vbo;

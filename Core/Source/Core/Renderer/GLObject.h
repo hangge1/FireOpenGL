@@ -12,6 +12,20 @@ public:
     virtual void Bind() const = 0;
     virtual void Unbind() const = 0;
 
+    bool IsValid() const
+    {
+        return m_ID != 0;
+    }
+
+    operator bool() const
+    {
+        return IsValid();
+    }
+
+    unsigned int ID() const
+    {
+        return m_ID;
+    }
 protected:
     unsigned int m_ID = 0;
 };

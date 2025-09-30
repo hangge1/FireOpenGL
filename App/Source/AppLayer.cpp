@@ -7,6 +7,7 @@
 #include <spdlog/spdlog.h>
 
 #include <Core/Renderer/VBLayout.h>
+#include <Core/Renderer/ShaderProgramHelper.h>
 
 using namespace Core;
 
@@ -72,10 +73,10 @@ const char* fragmentShaderSource = "#version 330 core\n"
 AppLayer::AppLayer()
 {
 	// Create shaders
-	m_Shader = CreateShader(vertexShaderSource, fragmentShaderSource);
-	if (m_Shader <= 0)
+	m_ShaderProgram = CreateShaderProgramFromSource(vertexShaderSource, fragmentShaderSource);
+	if (!m_ShaderProgram)
 	{
-		SPDLOG_CRITICAL("Failed to Create Shader");
+		SPDLOG_CRITICAL("Failed to Create ShaderProgram");
 		assert(false);
 	}
 
@@ -106,7 +107,7 @@ AppLayer::AppLayer()
 
 AppLayer::~AppLayer()
 {
-	glDeleteProgram(m_Shader);
+
 }
 
 void AppLayer::OnEvent(Event::Event& event)
@@ -122,7 +123,7 @@ void AppLayer::OnUpdate(float ts)
 
 void AppLayer::OnRender()
 {
-	glUseProgram(m_Shader);
+	m_ShaderProgram->Bind();
 
 	// Render
     m_vao.Bind();
