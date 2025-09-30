@@ -2,6 +2,9 @@
 
 #include <cstdint>
 
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+
 #include "Core/Layer.h"
 #include <Core/Event/Event.h>
 
@@ -22,6 +25,10 @@ public:
 private:
     std::unique_ptr<Core::Renderer::ShaderProgram> m_ShaderProgram;
     std::unique_ptr<Core::Renderer::Texture2D> m_Texture;
+
+    glm::vec3 origin {};
+    glm::vec3 lookAt {0.0f,0.0f,-1.0f};
+    glm::vec3 up { 0.0f, 1.0f, 0.0f};
 
     Core::Renderer::VAO m_vao;
     Core::Renderer::VBO m_vbo;

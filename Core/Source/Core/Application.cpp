@@ -104,6 +104,12 @@ glm::vec2 Application::GetFramebufferSize() const
 	return m_Window->GetFramebufferSize();
 }
 
+float Application::Aspect() const
+{
+    glm::vec2 frameSize = GetFramebufferSize();
+    return frameSize[0] / frameSize[1];
+}
+
 Application& Application::Get()
 {
 	assert(s_Application);

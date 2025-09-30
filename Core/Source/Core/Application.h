@@ -42,6 +42,8 @@ namespace Core {
 
 		glm::vec2 GetFramebufferSize() const;
 
+        float Aspect() const;
+
 		static Application& Get();
 		static float GetTime();
 

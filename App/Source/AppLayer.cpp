@@ -2,16 +2,19 @@
 
 #include <cassert>
 #include <spdlog/spdlog.h>
-#include <glm/glm.hpp>
+
 
 #include <Core/Common/Macro.h>
 #include <Core/Application.h>
 #include <Core/Renderer/VBLayout.h>
 #include <Core/Renderer/ShaderProgramUtils.h>
 #include <Core/Renderer/TextureUtils.h>
+#include <Core/Event/MouseButtonEvent.h>
+#include <Core/Event/KeyEvent.h>
 
 using namespace Core;
 using namespace Core::Renderer;
+using namespace Core::Event;
 
 bool AppLayer::Init()
 {
@@ -59,10 +62,33 @@ bool AppLayer::Init()
     return true;
 }
 
-void AppLayer::OnEvent(Event::Event& event)
+void AppLayer::OnEvent(Core::Event::Event& event)
 {
     SPDLOG_INFO("{}", event.ToString());
 
+    if (event.Type() == EventType::KeyEvent)
+    {
+        auto& ev = dynamic_cast<KeyEvent&>(event);
+
+        float step = 0.1f;
+        auto scanCode = ev.Key();
+        if (scanCode == GLFW_KEY_W)
+        {
+            origin.z -= step;
+        }
+        if (scanCode == GLFW_KEY_S)
+        {
+            origin.z += step;
+        }
+        if (scanCode == GLFW_KEY_A)
+        {
+            origin.x += step;
+        }
+        if (scanCode == GLFW_KEY_D)
+        {
+            origin.x -= step;
+        }
+    }
     Layer::OnEvent(event);
 }
 
@@ -72,11 +98,24 @@ void AppLayer::OnUpdate(float ts)
 
 void AppLayer::OnRender()
 {
-    m_Texture->ActivateSlot(0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    m_Texture->ActivateSlot(1);
     m_Texture->Bind();
 
 	m_ShaderProgram->Bind();
     m_ShaderProgram->SetUniform1i("u_Texture", m_Texture->GetActiveSlot());
+
+    static auto model = glm::translate(glm::mat4{ 1.0f }, glm::vec3{0.0f, 0.0f, -5.0f});
+    model = glm::rotate(model, glm::radians(2.0f), glm::vec3{ 1.0f, 0.0f, 0.0f });
+
+    auto view = glm::lookAtRH(origin, origin + lookAt, up);
+
+    static auto proj = glm::perspective(glm::radians(45.0f), Application::Get().Aspect(), 0.1f, 100.0f);
+
+    m_ShaderProgram->SetUniform4mat("u_ModelMatrix", model);
+    m_ShaderProgram->SetUniform4mat("u_ViewMatrix", view);
+    m_ShaderProgram->SetUniform4mat("u_ProjectMatrix", proj);
 
     m_vao.Bind();
 	glDrawElements(GL_TRIANGLES, m_ebo.Count(), GL_UNSIGNED_INT, 0);
