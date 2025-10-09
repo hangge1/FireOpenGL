@@ -1,8 +1,8 @@
 #include "AppLayer.h"
 
 #include <cassert>
-#include <spdlog/spdlog.h>
 
+#include <Core/Log/Log.h>
 
 #include <Core/Common/Macro.h>
 #include <Core/Application.h>
@@ -22,14 +22,14 @@ bool AppLayer::Init()
         SHADER_PATH(Vertex.glsl), SHADER_PATH(Fragment.glsl));
     if (!m_ShaderProgram)
     {
-        SPDLOG_CRITICAL("Failed to Create ShaderProgram");
+        LOG_CRITICAL("Failed to Create ShaderProgram");
         return false;
     }
 
     m_Texture = TextureUtils::CreateTexture2DFromFile(TEXTURE_PATH(Copilot.png));
     if (!m_Texture)
     {
-        SPDLOG_CRITICAL("Failed to Create Texture2D");
+        LOG_CRITICAL("Failed to Create Texture2D");
         return false;
     }
 
@@ -64,7 +64,7 @@ bool AppLayer::Init()
 
 void AppLayer::OnEvent(Core::Event::Event& event)
 {
-    SPDLOG_INFO("{}", event.ToString());
+    LOG_INFO("{}", event.ToString());
 
     if (event.Type() == EventType::KeyEvent)
     {

@@ -1,7 +1,7 @@
 #include "Core/Window.h"
 
 #include <cassert>
-#include <spdlog/spdlog.h>
+#include <Core/Log/Log.h>
 
 namespace Core {
 
@@ -23,7 +23,7 @@ namespace Core {
 		if (!m_Handle)
 		{
 			glfwTerminate();
-		    SPDLOG_CRITICAL("Failed to create GLFW window!");
+            LOG_CRITICAL("Failed to create GLFW window!");
 			assert(false);
 		}
 
@@ -47,11 +47,11 @@ namespace Core {
 
         if (version == 0)
         {
-            SPDLOG_CRITICAL("Failed to initialize OpenGL context");
+            LOG_CRITICAL("Failed to initialize OpenGL context");
             assert(false);
         }
 
-        SPDLOG_INFO("Loaded OpenGL {}.{}", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+        LOG_INFO("Loaded OpenGL {}.{}", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
 	}
 
 	void Window::Destroy()

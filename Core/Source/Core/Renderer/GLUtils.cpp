@@ -1,7 +1,7 @@
 
 #include "Core/Renderer/GLUtils.h"
 
-#include <spdlog/spdlog.h>
+#include <Core/Log/Log.h>
 
 namespace Core::Renderer {
 
@@ -63,7 +63,7 @@ namespace Core::Renderer {
 		const char* typeStr = GLDebugTypeToString(type);
 		const char* severityStr = GLDebugSeverityToString(severity);
 
-		SPDLOG_INFO("[OpenGL] [{} - {} ({})]: [{}] {}", severityStr, typeStr, id, sourceStr, message);
+        LOG_INFO("[OpenGL] [{} - {} ({})]: [{}] {}", severityStr, typeStr, id, sourceStr, message);
 	}
 
 	void InitOpenGLDebugMessageCallback()
