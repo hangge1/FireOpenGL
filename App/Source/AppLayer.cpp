@@ -91,6 +91,12 @@ void AppLayer::OnEvent(Core::Event::Event& event)
             m_CameraMove.x -= step;
         }
     }
+    else if (event.Type() == EventType::WindowSizeEvent)
+    {
+        auto& ev = dynamic_cast<WindowSizeEvent&>(event);
+        m_camera->SetAspectRatio(ev.Height() / ev.Width());
+    }
+
     Layer::OnEvent(event);
 }
 

@@ -53,6 +53,16 @@ float PerspectiveCamera::GetMoveSpeed() const
     return m_MoveSpeed;
 }
 
+void PerspectiveCamera::SetAspectRatio(float aspect)
+{
+    m_AspectRatio = aspect;
+}
+
+float PerspectiveCamera::GetAspectRatio() const
+{
+    return m_AspectRatio;
+}
+
 glm::mat4 PerspectiveCamera::GetViewMatrix() const
 {
     return glm::lookAtRH(m_Position, m_Position + m_Forward, m_Up);

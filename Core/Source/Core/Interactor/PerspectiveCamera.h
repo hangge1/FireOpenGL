@@ -23,6 +23,9 @@ public:
     void SetMoveSpeed(float speed);
     float GetMoveSpeed() const;
 
+    void SetAspectRatio(float aspect);
+    float GetAspectRatio() const;
+
     virtual ~PerspectiveCamera() = default;
 
     virtual glm::mat4 GetViewMatrix() const;
