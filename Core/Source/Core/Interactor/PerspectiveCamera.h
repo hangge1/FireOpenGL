@@ -20,6 +20,9 @@ public:
     void SetForward(const glm::vec3& forward);
     glm::vec3 GetForward() const;
 
+    void SetMoveSpeed(float speed);
+    float GetMoveSpeed() const;
+
     virtual ~PerspectiveCamera() = default;
 
     virtual glm::mat4 GetViewMatrix() const;
@@ -34,4 +37,6 @@ protected:
     glm::vec3 m_Position { 0.0f, 0.0f, 0.0f };
     glm::vec3 m_Up { 0.0f, 1.0f, 0.0f };
     glm::vec3 m_Forward { 0.0f, 0.0f, -1.0f };
+
+    float m_MoveSpeed { 10.0f };
 };

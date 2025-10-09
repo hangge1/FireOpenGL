@@ -67,37 +67,37 @@ bool AppLayer::Init()
 void AppLayer::OnEvent(Core::Event::Event& event)
 {
     LOG_INFO("{}", event.ToString());
-
+    
     if (event.Type() == EventType::KeyEvent)
     {
         auto& ev = dynamic_cast<KeyEvent&>(event);
 
-        float step = 0.1f;
+        float step = m_camera->GetMoveSpeed();
         auto scanCode = ev.Key();
-        auto origin = m_camera->GetPosition();
         if (scanCode == GLFW_KEY_W)
         {
-            origin.z -= step;
+            m_CameraMove.z -= step;
         }
         if (scanCode == GLFW_KEY_S)
         {
-            origin.z += step;
+            m_CameraMove.z += step;
         }
         if (scanCode == GLFW_KEY_A)
         {
-            origin.x += step;
+            m_CameraMove.x += step;
         }
         if (scanCode == GLFW_KEY_D)
         {
-            origin.x -= step;
+            m_CameraMove.x -= step;
         }
-        m_camera->SetPosition(origin);
     }
     Layer::OnEvent(event);
 }
 
 void AppLayer::OnUpdate(float ts)
 {
+    m_camera->AddPosition(m_CameraMove * ts);
+    m_CameraMove = {};
 }
 
 void AppLayer::OnRender()

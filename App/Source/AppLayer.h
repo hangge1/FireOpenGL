@@ -29,6 +29,8 @@ private:
 
     std::shared_ptr<PerspectiveCamera> m_camera;
 
+    glm::vec3 m_CameraMove;
+
     Core::Renderer::VAO m_vao;
     Core::Renderer::VBO m_vbo;
     Core::Renderer::EBO m_ebo;

@@ -43,6 +43,16 @@ glm::vec3 PerspectiveCamera::GetForward() const
     return m_Forward;
 }
 
+void PerspectiveCamera::SetMoveSpeed(float speed)
+{
+    m_MoveSpeed = speed;
+}
+
+float PerspectiveCamera::GetMoveSpeed() const
+{
+    return m_MoveSpeed;
+}
+
 glm::mat4 PerspectiveCamera::GetViewMatrix() const
 {
     return glm::lookAtRH(m_Position, m_Position + m_Forward, m_Up);
