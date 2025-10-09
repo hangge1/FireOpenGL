@@ -13,6 +13,7 @@
 #include <Core/Renderer/EBO.h>
 #include <Core/Renderer/ShaderProgram.h>
 #include <Core/Renderer/Texture2D.h>
+#include <Core/Interactor/PerspectiveCamera.h>
 
 class AppLayer : public Core::Layer
 {
@@ -26,9 +27,7 @@ private:
     std::unique_ptr<Core::Renderer::ShaderProgram> m_ShaderProgram;
     std::unique_ptr<Core::Renderer::Texture2D> m_Texture;
 
-    glm::vec3 origin {};
-    glm::vec3 lookAt {0.0f,0.0f,-1.0f};
-    glm::vec3 up { 0.0f, 1.0f, 0.0f};
+    std::shared_ptr<PerspectiveCamera> m_camera;
 
     Core::Renderer::VAO m_vao;
     Core::Renderer::VBO m_vbo;

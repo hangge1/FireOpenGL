@@ -18,6 +18,8 @@ using namespace Core::Event;
 
 bool AppLayer::Init()
 {
+    m_camera = std::make_shared<PerspectiveCamera>(glm::radians(45.0f), Application::Get().Aspect(), 0.1f, 100.0f);
+
     m_ShaderProgram = ShaderProgramUtils::CreateShaderProgramFromFile(
         SHADER_PATH(Vertex.glsl), SHADER_PATH(Fragment.glsl));
     if (!m_ShaderProgram)
@@ -72,6 +74,7 @@ void AppLayer::OnEvent(Core::Event::Event& event)
 
         float step = 0.1f;
         auto scanCode = ev.Key();
+        auto origin = m_camera->GetPosition();
         if (scanCode == GLFW_KEY_W)
         {
             origin.z -= step;
@@ -88,6 +91,7 @@ void AppLayer::OnEvent(Core::Event::Event& event)
         {
             origin.x -= step;
         }
+        m_camera->SetPosition(origin);
     }
     Layer::OnEvent(event);
 }
@@ -109,9 +113,11 @@ void AppLayer::OnRender()
     static auto model = glm::translate(glm::mat4{ 1.0f }, glm::vec3{0.0f, 0.0f, -5.0f});
     model = glm::rotate(model, glm::radians(2.0f), glm::vec3{ 1.0f, 0.0f, 0.0f });
 
-    auto view = glm::lookAtRH(origin, origin + lookAt, up);
+    m_camera->SetForward({0.0f,0.0f,-1.0f});
 
-    static auto proj = glm::perspective(glm::radians(45.0f), Application::Get().Aspect(), 0.1f, 100.0f);
+    auto view = m_camera->GetViewMatrix();
+
+    static auto proj = m_camera->GetProjectionMatrix();
 
     m_ShaderProgram->SetUniform4mat("u_ModelMatrix", model);
     m_ShaderProgram->SetUniform4mat("u_ViewMatrix", view);

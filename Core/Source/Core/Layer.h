@@ -16,6 +16,8 @@ namespace Core {
 
         virtual bool Init(){ return true; }
 
+        virtual void Destroy(){}
+
 		virtual void OnEvent(Event::Event& event) 
         {
             if (event.Type() == Event::EventType::WindowSizeEvent)
